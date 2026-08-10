@@ -1,0 +1,11 @@
+# Force edge revalidation so new deploys appear immediately at aitist.ai.
+# Without this, Cloudflare Pages caches HTML at the custom domain for 7 days
+# (s-maxage=604800) and a fresh deploy silently doesn't show up.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+
+/*.png
+  Cache-Control: public, max-age=86400
