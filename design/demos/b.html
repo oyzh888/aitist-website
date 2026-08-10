@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aitist — Direction B · Instrument</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F6F3; --ink:#111110; --muted:#6B6A66; --dim:#9A9892;
+  --accent:#FF4A18; --rule:rgba(17,17,16,.12); --rule2:rgba(17,17,16,.07);
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sans:'Archivo',system-ui,sans-serif;
+  --snap:cubic-bezier(.2,0,0,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1440px;margin:0 auto;padding:0 44px;position:relative}
+
+/* ── exposed 12-col grid ── */
+.gridlines{position:fixed;inset:0;max-width:1440px;margin:0 auto;padding:0 44px;
+  z-index:0;pointer-events:none;display:grid;grid-template-columns:repeat(12,1fr)}
+.gridlines i{border-left:1px solid var(--rule2)}
+.gridlines i:last-child{border-right:1px solid var(--rule2)}
+
+/* ── nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--bg);
+  border-bottom:1px solid var(--rule)}
+nav .inner{max-width:1440px;margin:0 auto;padding:15px 44px;display:flex;
+  align-items:center;justify-content:space-between}
+.wm{font-size:16px;font-weight:700;letter-spacing:-.03em;text-transform:uppercase}
+.wm i{color:var(--accent);font-style:normal}
+.navlinks{display:flex;gap:30px;align-items:center}
+.navlinks a{font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);transition:color .15s}
+.navlinks a:hover{color:var(--ink)}
+.btn{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:10px 18px;border:1px solid var(--ink);background:transparent;color:var(--ink);
+  cursor:pointer;border-radius:0;transition:transform .22s var(--snap),background .15s,color .15s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn-a{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-a:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+@media(max-width:900px){.navlinks a{display:none}}
+
+/* ── hero ── */
+.hero{position:relative;z-index:2;min-height:92vh;display:flex;flex-direction:column;
+  justify-content:center;padding-top:104px}
+.meta{display:flex;justify-content:space-between;border-top:1px solid var(--ink);
+  padding:10px 0;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:52px}
+.meta .n{color:var(--ink);font-weight:500}
+
+h1{font-size:clamp(44px,7.8vw,126px);font-weight:600;letter-spacing:-.045em;
+  line-height:.94;margin-bottom:0;max-width:16ch}
+h1 .q{color:var(--muted)}
+h1 .rulewrap{display:block;position:relative}
+h1 .rule{display:inline-block;height:1px;background:var(--ink);width:0;
+  vertical-align:.28em;margin-left:.3em;transition:width 1s var(--snap) .35s}
+.loaded h1 .rule{width:min(30vw,340px)}
+
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-top:56px}
+@media(max-width:900px){.lower{grid-template-columns:1fr;gap:36px}}
+.sub{font-size:clamp(15px,1.25vw,19px);line-height:1.5;color:var(--muted);max-width:44ch}
+.sub b{color:var(--ink);font-weight:500}
+.actions{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.actions .row{display:flex;gap:10px;flex-wrap:wrap}
+.works{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);padding-top:14px;border-top:1px solid var(--rule);width:100%}
+.works a{color:var(--muted);margin-left:14px}
+.works a:hover{color:var(--accent)}
+
+/* ── fold: tabular numbers strip ── */
+.strip{position:relative;z-index:2;border-top:1px solid var(--ink);margin-top:70px;
+  display:grid;grid-template-columns:repeat(3,1fr)}
+@media(max-width:760px){.strip{grid-template-columns:1fr}}
+.strip .cell{padding:34px 0 40px;border-right:1px solid var(--rule)}
+.strip .cell:last-child{border-right:0}
+.strip .cell:not(:first-child){padding-left:32px}
+.strip .num{font-size:clamp(44px,6.4vw,92px);font-weight:600;letter-spacing:-.05em;
+  line-height:1;font-variant-numeric:tabular-nums;margin-bottom:12px}
+.strip .cell:nth-child(2) .num{color:var(--accent)}
+.strip .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.snapin{opacity:0;transform:translateY(14px);transition:opacity .22s var(--snap),transform .22s var(--snap)}
+.snapin.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="gridlines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<nav><div class="inner">
+  <div class="wm">Aitist<i>.ai</i></div>
+  <div class="navlinks">
+    <a href="#">AI Employees</a><a href="#">How it Works</a><a href="#">Pricing</a><a href="#">About</a>
+    <button class="btn btn-a">Get Started</button>
+  </div>
+</div></nav>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="meta">
+      <span><span class="n">01 / Aitist</span> &nbsp;—&nbsp; Autonomous AI employees</span>
+      <span>Sunnyvale, CA</span>
+    </div>
+
+    <h1>
+      <span class="q">Most AI<br>answers questions.</span><br>
+      <span class="rulewrap">Aitist gets<br>things done.<span class="rule"></span></span>
+    </h1>
+
+    <div class="lower">
+      <p class="sub">Not another AI chatbot. Aitist deploys <b>24/7 AI employees</b> that complete
+        real work — for your business, on the channels you already use.</p>
+      <div class="actions">
+        <div class="row">
+          <button class="btn btn-a">Get Early Access</button>
+          <button class="btn">Talk to Sales</button>
+        </div>
+        <div class="works">Works with
+          <a href="#">Telegram</a><a href="#">Discord</a><a href="#">飞书</a><a href="#">小红书</a><a href="#">Web</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div class="cell snapin"><div class="num">24/7</div><div class="lbl">Always running</div></div>
+    <div class="cell snapin"><div class="num" data-to="500">0</div><div class="lbl">Signals tracked daily</div></div>
+    <div class="cell snapin"><div class="num" data-to="10000">0</div><div class="lbl">Tasks completed monthly</div></div>
+  </section>
+</div>
+
+<script>
+requestAnimationFrame(()=>document.body.classList.add('loaded'));
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  e.target.classList.add('in');
+  const n=e.target.querySelector('[data-to]');
+  if(n&&!n.dataset.ran){n.dataset.ran=1;count(n,+n.dataset.to)}
+  io.unobserve(e.target);
+}),{threshold:.35});
+document.querySelectorAll('.snapin').forEach((el,i)=>{el.style.transitionDelay=(i*70)+'ms';io.observe(el)});
+function count(el,to){
+  if(reduced){el.textContent=to.toLocaleString()+'+';return}
+  const t0=performance.now(),dur=900;
+  (function f(t){
+    const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(to*e).toLocaleString()+'+';
+    if(p<1)requestAnimationFrame(f);
+  })(t0);
+}
+</script>
+</body>
+</html>
