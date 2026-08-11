@@ -1,6 +1,8 @@
 # DNS rollback record — `aitist.ai` apex cutover
 
-**Captured:** 2026-08-10, immediately before the apex cutover to Cloudflare Pages.
+**Captured:** 2026-08-10, immediately before the apex cutover to the `aitist-web` Cloudflare Worker.
+**Executed:** 2026-08-10 — the 9 records below were deleted; the live state now matches
+"After the cutover" at the bottom of this file.
 **Zone:** `aitist.ai` — zone id `f8cb85e8b79ee45a4dc078a67e56e81a` (account `962646ca…`, profile `adobe-foundry`)
 **Total records in zone at capture time:** 60
 
@@ -53,6 +55,20 @@ payment/verification flows depend on them.
 - **ECH stays OFF** for this zone. It was disabled 2026-08-09 because Chrome + corp VPN
   middleboxes RST on ECH. Do not re-enable.
 
+## After the cutover — what the apex looks like now
+
+Verified 2026-08-10. Zone went 60 → 53 records: 9 deleted, 2 created by wrangler.
+
+| Type | Name | Content | Proxied |
+|------|------|---------|---------|
+| AAAA | `aitist.ai` | `100::` | true |
+| AAAA | `www.aitist.ai` | `100::` | true |
+
+`100::` is the standard discard address Cloudflare uses for a proxied hostname with no real
+origin — the Worker intercepts the request at the edge, so the address is never dialled. All MX /
+NS / TXT rows above survived (re-verified by count and content), and `report*.aitist.ai` was not
+touched.
+
 ## Rollback procedure
 
 ```bash
@@ -61,10 +77,14 @@ Z=f8cb85e8b79ee45a4dc078a67e56e81a
 api() { curl -s -X "$1" "https://api.cloudflare.com/client/v4/zones/$Z/dns_records${2:-}" \
         -H "Authorization: Bearer $CF_API_TOKEN" -H 'Content-Type: application/json' ${3:+-d "$3"}; }
 
-# 1. detach the Pages custom domains first (else Pages recreates its DNS)
-cf-deploy pages-rm aitist-web          # or detach domains only, in the CF dashboard
+# 1. detach the Worker's custom domains FIRST — otherwise the Worker keeps answering and
+#    wrangler recreates the AAAA rows on the next deploy. Either drop the two [[routes]]
+#    blocks from deploy/wrangler.toml and redeploy, or delete the domains via the API:
+curl -s "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/workers/domains?zone_name=aitist.ai" \
+  -H "Authorization: Bearer $CF_API_TOKEN"          # find the ids for aitist.ai / www.aitist.ai
+# then DELETE /accounts/$CF_ACCOUNT_ID/workers/domains/<id> for each
 
-# 2. delete whatever now sits at apex / www
+# 2. delete whatever now sits at apex / www (the AAAA 100:: rows)
 api GET '?name=aitist.ai&type=A'       # note ids, then DELETE each
 api GET '?name=aitist.ai&type=AAAA'
 api GET '?name=www.aitist.ai'
