@@ -1,0 +1,32 @@
+# aitist.ai — served by a Cloudflare Worker with static assets.
+#
+# Why a Worker and not Pages: Cloudflare now points new static projects at
+# Workers Static Assets, and Pages on this account is at its hard 10/10 project
+# cap. Workers cap out around 500 scripts, so this needs no project deleted.
+#
+# Deploy (Node >=22 required by wrangler 4 — this box ships Node 20):
+#   PATH=/sensei-fs-3/users/zouyang/tools/node22/bin:$PATH \
+#   npx -y wrangler@4 deploy --config deploy/wrangler.toml
+#
+# The apex cutover is DONE (2026-08-10): the old Google A/AAAA rows were deleted
+# and the routes below now own aitist.ai / www.aitist.ai. Re-deploying is
+# idempotent and does not re-touch DNS. To hand the apex back to something else,
+# detach these routes FIRST — see deploy/DNS-ROLLBACK.md.
+
+name = "aitist-web"
+compatibility_date = "2026-08-01"
+workers_dev = true
+
+[assets]
+directory = "./site"
+# serve /404.html for unmatched paths instead of falling back to index.html
+# (fail-closed: a fallback to index would return 200 for typo'd URLs)
+not_found_handling = "404-page"
+
+[[routes]]
+pattern = "aitist.ai"
+custom_domain = true
+
+[[routes]]
+pattern = "www.aitist.ai"
+custom_domain = true

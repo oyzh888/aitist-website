@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aitist 首屏 A/B — style 定稿用</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--mono:'JetBrains Mono',ui-monospace,monospace;--sans:'Inter Tight',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0B0C0D;font-family:var(--sans);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+header{flex:none;padding:11px 20px;display:flex;align-items:center;gap:20px;
+  border-bottom:1px solid #1E2024;background:#0B0C0D;flex-wrap:wrap}
+.ttl{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#5A5F65}
+.sw{display:flex;border:1px solid #1E2024;border-radius:6px;overflow:hidden}
+.sw button{font-family:var(--mono);font-size:11px;letter-spacing:.09em;padding:8px 15px;
+  background:transparent;color:#8B9096;border:0;cursor:pointer;transition:background .15s,color .15s}
+.sw button+button{border-left:1px solid #1E2024}
+.sw button.on{background:#C6F24E;color:#0A0C05;font-weight:600}
+.note{font-family:var(--mono);font-size:10px;color:#5A5F65;letter-spacing:.06em;margin-left:auto}
+.note b{color:#F5B942;font-weight:400}
+.frames{flex:1;position:relative;background:#08090A}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;pointer-events:none;transition:opacity .12s}
+iframe.on{opacity:1;pointer-events:auto}
+.desc{flex:none;padding:11px 20px;border-top:1px solid #1E2024;background:#0B0C0D;
+  font-size:12.5px;color:#8B9096;line-height:1.55;display:none}
+.desc.on{display:block}
+.desc b{color:#F4F5F6;font-weight:500}
+.desc .k{font-family:var(--mono);font-size:11px;color:#C6F24E}
+@media(max-width:640px){.note{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="ttl">Aitist 首屏 · style 对比</span>
+  <div class="sw">
+    <button id="ba" class="on">A · OPERATOR CONSOLE</button>
+    <button id="bb">B · INSTRUMENT</button>
+  </div>
+  <span class="note">粗草稿 · 定 style 用 · <b>数字与 trace 均为占位</b></span>
+</header>
+
+<div class="frames">
+  <iframe id="fa" src="a.html" class="on" title="Direction A"></iframe>
+  <iframe id="fb" src="b.html" title="Direction B"></iframe>
+</div>
+
+<div class="desc on" id="da">
+  <b>A · Operator Console</b> — 网站本身就是产品界面。深色、单一柠檬绿强调色（离开 shadcn 默认的 emerald，
+  同时把绿色还给「成功」状态）、全 mono 数据层、首屏右侧一段 agent trace 打字流出。
+  <span class="k">动的是数据，不是版式</span> —— 全站砍掉 fade-up，只留 opacity。
+  首屏后面那条 <span class="k">FLEET LIVE · 14 agents</span> 要接真 fleet 数据，接不上就删掉，不编。
+</div>
+<div class="desc" id="db">
+  <b>B · Instrument</b> — 亮色瑞士技术风。骨白底 + 墨黑 + 工业橙，露出 12 栏网格，
+  <span class="k">01 / AITIST</span> mono 标签压在细线上，巨型 tabular 数字。整个 AI 品类都是深色发光，
+  这个是唯一会被人截图问「谁做的」的方案。动效只有两种：细线自己画出来、数字 tabular 跳数。
+  代价 —— 真做要买 display 字体（Söhne Breit / GT Alpina 一类），这里先用 Archivo 顶着。
+</div>
+
+<script>
+const m={a:[ba,fa,da],b:[bb,fb,db]};
+function pick(k){for(const[x,[b,f,d]]of Object.entries(m)){
+  const on=x===k;b.classList.toggle('on',on);f.classList.toggle('on',on);d.classList.toggle('on',on);}}
+ba.onclick=()=>pick('a');bb.onclick=()=>pick('b');
+addEventListener('keydown',e=>{if(e.key==='a'||e.key==='A')pick('a');if(e.key==='b'||e.key==='B')pick('b')});
+</script>
+</body>
+</html>

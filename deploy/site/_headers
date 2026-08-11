@@ -1,0 +1,27 @@
+# Cloudflare applies EVERY matching rule and appends the values, so a
+# Cache-Control on /* would stack with the per-type one below and produce
+# "max-age=0, must-revalidate, public, max-age=86400". /* therefore carries
+# security headers only, and caching is set per file type.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+
+# HTML must revalidate every time, otherwise the edge serves a stale homepage
+# for a week after a deploy (default s-maxage=604800 at a custom domain).
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Immutable-ish assets: filenames are stable, content changes rarely.
+/*.png
+  Cache-Control: public, max-age=86400
+
+/robots.txt
+  Cache-Control: public, max-age=3600
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600
