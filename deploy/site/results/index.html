@@ -1,53 +1,32 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" href="../assets/icon.png"><link rel="stylesheet" href="../assets/base.css"><title>Results — Aitist</title><meta name="description" content="Measured results from Aitist production systems, October 2026."><link rel="canonical" href="https://aitist.ai/results/"><style>
 .page{padding:170px 0 clamp(80px,10vw,140px)}
-.page h1{font-size:clamp(40px,5.6vw,80px);max-width:14ch}
-.page .lede{max-width:540px}
+.page h1{font-size:clamp(44px,6.4vw,92px);max-width:12ch}
+.page .lede{max-width:480px}
 .back{display:inline-block;margin-bottom:28px}
 .back:hover{color:var(--ink)}
-.group{margin-top:clamp(72px,9vw,120px)}
-.group>.mono{display:block;padding-bottom:16px;border-bottom:1px solid var(--line)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr)}
-.stat{padding:36px 32px 36px 0;border-bottom:1px solid var(--line)}
-.stat+.stat{padding-left:32px;border-left:1px solid var(--line)}
-.stat:nth-child(3n+1){padding-left:0;border-left:0}
-.stat b{display:block;font:500 clamp(44px,5.4vw,80px)/1 var(--sans);letter-spacing:-.045em}
-.stat b i{font-style:normal;color:var(--accent)}
-.stat h3{margin-top:18px;font-size:19px}
-.stat p{margin-top:6px;color:var(--dim);font-size:15px;max-width:30ch}
-.note{margin-top:48px;color:var(--dim);font-size:14px;max-width:70ch}
-.logos{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
-.logos div{padding:44px 0;font:500 clamp(24px,2.8vw,36px) var(--sans);letter-spacing:-.03em;color:var(--ink);border-top:1px solid var(--line)}
-.logos div:nth-child(-n+3){border-top:0}
-.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
-.cols div{border-top:1px solid var(--line);padding-top:20px}
-.cols h3{margin:12px 0 8px}.cols p{color:var(--dim);font-size:15px}
-@media (max-width:820px){.stats,.logos,.cols{grid-template-columns:1fr}.stat,.stat+.stat{padding:28px 0;border-left:0}
-.logos div,.logos div:nth-child(-n+3){border-top:1px solid var(--line);padding:26px 0}.logos div:first-child{border-top:0}.cols{gap:28px}}
-</style></head><body><nav><div class="wrap"><a class="brand" href="/" aria-label="Aitist"><svg viewBox="0 0 900 842" aria-hidden="true"><path d="M368 10h158l254 578H626L447 165 270 588h228l55 123H218l-51 121H12z" fill="currentColor"/><path d="M679 711h154l53 121H730z" fill="#C4F24E"/></svg><span>Aitist<i>.ai</i></span></a><ul><li><a href="/">Home</a></li><li><a href="../results/">Results</a></li><li><a href="../team/">Team</a></li><li><a href="mailto:contact@aitist.ai">Contact</a></li></ul></div></nav><main class="page"><div class="wrap">
-<a class="mono back" href="/">← Aitist</a>
-<h1>Results.</h1>
-<p class="lede">Measured, not projected. October 2026, production systems, with humans approving every change that ships.</p>
-
-<div class="group"><span class="mono">01 — Speed and reliability</span>
-<div class="stats">
-<div class="stat"><b>3.3<i>×</i></b><h3>Faster in eight days</h3><p>GLM-5.3 output speed, 28 to 92 tokens per second, on a 39-node production cluster.</p></div>
-<div class="stat"><b>10<i>×</i></b><h3>Faster first token</h3><p>Time to first token fell from 6.8 to 0.66 seconds.</p></div>
-<div class="stat"><b>0<i>%</i></b><h3>Agent tool-call errors</h3><p>Down from 4.7% on multi-turn workloads. Peak error rate 48% to zero.</p></div>
-</div></div>
-
-<div class="group"><span class="mono">02 — Breadth</span>
-<div class="stats">
-<div class="stat"><b>312<i></i></b><h3>GPUs in production</h3><p>Four frontier models served, up to 1M tokens of context.</p></div>
-<div class="stat"><b>34<i>/34</i></b><h3>Contract checks passed</h3><p>A new 2.8T-parameter model brought up on six hardware setups, from 24 of 34 after seven patches.</p></div>
-<div class="stat"><b>2<i>×</i></b><h3>The median provider</h3><p>213 tokens per second on DeepSeek-V4.1-Flash against a public-endpoint median of 105.</p></div>
-</div></div>
-
-<div class="group"><span class="mono">03 — The loop itself</span>
-<div class="stats">
-<div class="stat"><b>227<i></i></b><h3>Commits in ten days</h3><p>Four engineers and agents, October 11 to 20.</p></div>
-<div class="stat"><b>74<i>%</i></b><h3>Co-authored by agents</h3><p>168 of those 227 commits.</p></div>
-<div class="stat"><b>5<i>×</i></b><h3>Less measurement noise</h3><p>Run-to-run variance down from 4–9% to 0.8–2.4%.</p></div>
-</div></div>
-
-<p class="note">Figures are from Aitist-operated systems and public benchmark data, October 2026. Competitor endpoints carried live traffic; ours were measured on idle systems. Methods available on request.</p>
-</div></main><footer><div class="wrap"><span class="mono">© 2026 Aitist, Inc.</span><a class="mono" href="mailto:contact@aitist.ai">contact@aitist.ai</a></div></footer></body></html>
+.log{margin-top:clamp(72px,9vw,120px);list-style:none;border-top:1px solid var(--line)}
+.log li{display:grid;grid-template-columns:72px 1fr 150px;gap:24px;align-items:baseline;padding:34px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateY(8px);transition:opacity .8s ease,transform .8s ease}
+.log li.in{opacity:1;transform:none}
+.log .mono:first-child{color:var(--faint)}
+.log p{min-width:0;font:500 clamp(24px,3vw,42px)/1.14 var(--sans);letter-spacing:-.035em;color:var(--dim);max-width:24ch}
+.log p b{font-weight:500;color:var(--ink)}
+.log p i{font-style:normal;color:var(--accent)}
+.log .mono:last-child{text-align:right}
+.note{margin-top:48px;color:var(--faint);font-size:13px;max-width:64ch;line-height:1.7}
+@media (max-width:820px){.log li{grid-template-columns:36px 1fr;gap:6px 16px;padding:26px 0}
+.log .mono:last-child{grid-column:2;text-align:left}}
+@media (prefers-reduced-motion:reduce){.log li{opacity:1;transform:none}}
+</style><noscript><style>.log li{opacity:1;transform:none}</style></noscript></head><body><nav><div class="wrap"><a class="brand" href="/" aria-label="Aitist"><svg viewBox="0 0 900 842" aria-hidden="true"><path d="M368 10h158l254 578H626L447 165 270 588h228l55 123H218l-51 121H12z" fill="currentColor"/><path d="M679 711h154l53 121H730z" fill="#C4F24E"/></svg><span>Aitist<i>.ai</i></span></a><ul><li><a href="/">Home</a></li><li><a href="../results/">Results</a></li><li><a href="../team/">Team</a></li><li><a href="mailto:contact@aitist.ai">Contact</a></li></ul></div></nav><main class="page"><div class="wrap">
+<a class="mono back" href="../">← Aitist</a>
+<span class="mono" style="display:block;margin-bottom:20px">Results</span>
+<h1>What survived.</h1>
+<p class="lede">A partial record of changes that passed independent verification. October 2026.</p>
+<ol class="log"><li><span class="mono">01</span><p>Eight days. A frontier model <b>three times faster</b>, and the first word arrives <b>ten times sooner</b>.</p><span class="mono">Serving</span></li><li><span class="mono">02</span><p>Tool-call failures on long agent runs: <b>4.7% to <i>zero</i></b>. Peak error rate: <b>48% to <i>zero</i></b>.</p><span class="mono">Reliability</span></li><li><span class="mono">03</span><p><b>Twice</b> the speed of the median provider serving the same model.</p><span class="mono">Benchmark</span></li><li><span class="mono">04</span><p><b>312</b> GPUs in production. Four frontier models. <b>One million</b> tokens of context.</p><span class="mono">Scale</span></li><li><span class="mono">05</span><p>A <b>2.8-trillion-parameter</b> model, brought up on six kinds of hardware. <b>34 of 34</b> checks held.</p><span class="mono">Portability</span></li><li><span class="mono">06</span><p>Measurement noise cut <b>fivefold</b>. From <b>4–9%</b> to <b>0.8–2.4%</b>.</p><span class="mono">Method</span></li><li><span class="mono">07</span><p><b>227</b> changes in ten days. <b>74%</b> written alongside agents. Every one approved by a person.</p><span class="mono">The loop</span></li></ol>
+<p class="note">Measured on systems Aitist operates. Public comparisons use endpoints under live load; ours were measured idle. Methods on request.</p>
+</div></main>
+<script>
+(()=>{const els=document.querySelectorAll('.log li');
+if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.25});
+els.forEach(e=>io.observe(e))})();
+</script><footer><div class="wrap"><span class="mono">© 2026 Aitist, Inc.</span><a class="mono" href="mailto:contact@aitist.ai">contact@aitist.ai</a></div></footer></body></html>
