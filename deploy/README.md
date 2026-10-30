@@ -90,3 +90,12 @@ per-agent savings/efficiency figures. The hero console is labelled
 than posing as live fleet data. The `$400K live portfolio` figure (claim #7, "confirm the client
 is OK being described publicly") is replaced with `Weekly rebalancing across 95 stocks, fully
 automated` — same case, no client financials.
+
+## 2026-10-29 — v3 live (RSI research positioning)
+
+| | |
+|---|---|
+| Live | Home + `/results/` + `/team/`, Worker `aitist-web`, version `24b2152d-547a-43ef-ba6a-f62f5fd5d06e` |
+| Previous site | `deploy/site-v1/` (the Operator Console build), Worker version `6baf6d34` (2026-08-11) |
+| Rollback | `cp -r deploy/site-v1/. deploy/site/` (after emptying it) and `wrangler deploy --config deploy/wrangler.toml`; or roll back to version `6baf6d34` in the dashboard. DNS is untouched either way. |
+| Token | Read `~/.secrets/cloudflare.env` (single source). Do not use stale copies. |
